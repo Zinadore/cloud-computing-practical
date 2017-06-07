@@ -18,8 +18,7 @@ public class Book {
 	public static final String GET_BY_ID = "getByID";
 	public static final String FUZZY_SEARCH = "fuzzySearch";
 	
-	@Id
-	@GeneratedValue(strategy=GenerationType.IDENTITY)
+	
 	private int id;
 	@Column(nullable = false)
 	private String author;
@@ -43,7 +42,6 @@ public class Book {
 	
 	public Book(String author, String language, String publisher, String subject, String title, String isbn,
 			boolean inStock) {
-		super();
 		this.author = author;
 		this.language = language;
 		this.publisher = publisher;
@@ -97,7 +95,13 @@ public class Book {
 	public void setInStock(boolean inStock) {
 		this.inStock = inStock;
 	}
+	
+	@Id
+	@GeneratedValue(strategy=GenerationType.AUTO)
 	public int getId() {
 		return id;
+	}	
+	public void setId(int id) {
+		this.id = id;
 	}
 }
