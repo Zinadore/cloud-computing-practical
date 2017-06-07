@@ -1,0 +1,1 @@
+web: java -cp target/classes:target/dependency/* org.iboutsikas.practicals.bookstore.heroku.Main

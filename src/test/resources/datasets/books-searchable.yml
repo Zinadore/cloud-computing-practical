@@ -1,0 +1,25 @@
+books:
+  - id: 1
+    author: Giannakis
+    language: English
+    publisher: ThePublications
+    subject: Programming
+    title: Learning Java fast
+    isbn: 1234
+    inStock: true
+  - id: 2
+    author: Kwstakis
+    language: Greek
+    publisher: Giannakis
+    subject: Programming
+    title: Failing at learning Java fast
+    isbn: 4567
+    inStock: true
+  - id: 3
+    author: Giwrgakis
+    language: Gibberish
+    publisher: ThePublications
+    subject: Programmin
+    title: Why did i get involved with java?
+    isbn: 1267
+    inStock: false
