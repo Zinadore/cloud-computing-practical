@@ -46,12 +46,44 @@ public class BookRepository {
 	
 	}
 	
+	public List<Book> getAllInStock() {
+		em.getTransaction().begin();
+		try {
+			List<Book> result = em.createNamedQuery(Book.GET_ALL_IN_STOCK, Book.class).getResultList();
+			
+			em.getTransaction().commit();
+			return result;
+		} catch (Exception e) {
+			em.getTransaction().rollback();
+			throw e;
+		}
+	}
+	
 	public List<Book> search(String term) {
 		em.getTransaction().begin();
+		term = term.toLowerCase();
 		
 		try {
 			List<Book> results = em.createNamedQuery(Book.FUZZY_SEARCH, Book.class)
 					.setParameter("term", "%" + term + "%")
+					.getResultList();
+			
+			em.getTransaction().commit();
+			
+			return results;
+		} catch (Exception e) {
+			em.getTransaction().rollback();
+			throw e;
+		}
+	}
+	
+	public List<Book> searchInStock(String term) {
+		em.getTransaction().begin();
+		String test = term.toLowerCase();
+		
+		try {
+			List<Book> results = em.createNamedQuery(Book.FUZZY_SEARCH_IN_STOCK, Book.class)
+					.setParameter("term", "%" + test + "%")
 					.getResultList();
 			
 			em.getTransaction().commit();

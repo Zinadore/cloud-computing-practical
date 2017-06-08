@@ -2,9 +2,7 @@ package org.iboutsikas.practicals.bookstore;
 
 import static org.hamcrest.CoreMatchers.is;
 import static org.hamcrest.CoreMatchers.not;
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNotNull;
-import static org.junit.Assert.assertThat;
+import static org.junit.Assert.*;
 
 import java.util.List;
 
@@ -108,7 +106,7 @@ public class BookRepositoryTest {
 		
 		assertNotNull(books);
 		assertThat(books.size(), is(not(0)));
-		assertThat(books.size(), is(2));
+		assertThat(books.size(), is(3));
 		
 		Book first = books.get(0);
 		
@@ -167,6 +165,7 @@ public class BookRepositoryTest {
 		assertEquals(result.getAuthor(), "Changed Authoras");
 	}
 	
+	@Test
 	@DataSet("books.yml")
 	public void itShouldThrowIfEntityDoesNotExistOnUpdate() {
 		Book book = repo.find(3);
@@ -177,5 +176,34 @@ public class BookRepositoryTest {
 		thrown.expect(NoResultException.class);
 		repo.update(book);
 	}
+	
+	@Test
+	@DataSet("books.yml")
+	public void itShouldGetAllTheBooksInStock() {
+		List<Book> results = repo.getAllInStock();
+		
+		assertNotNull(results);
+		assertEquals(results.size(), 2);
+		
+		for (Book book : results) {
+			if(!book.isInStock()) {
+				fail("There should be no out of stock book in the list");
+			}
+		}
+	}
+	
+	@Test
+	@DataSet("books-searchable.yml")
+	public void itShouldSearchOnlyInStockBooks() {
+		List<Book> results = repo.searchInStock("Prog");
 
+		assertNotNull(results);
+		assertEquals(2, results.size());
+		
+		for (Book book : results) {
+			if(!book.isInStock()) {
+				fail("There should be no out of stock book in the list");
+			}
+		}		
+	}
 }

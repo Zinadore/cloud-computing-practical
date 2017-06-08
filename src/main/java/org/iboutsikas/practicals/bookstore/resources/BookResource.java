@@ -2,6 +2,7 @@ package org.iboutsikas.practicals.bookstore.resources;
 
 import java.util.List;
 
+import javax.annotation.PreDestroy;
 import javax.inject.Singleton;
 import javax.persistence.EntityManager;
 import javax.persistence.NoResultException;
@@ -15,11 +16,9 @@ import javax.ws.rs.Path;
 import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
 import javax.ws.rs.QueryParam;
-import javax.ws.rs.core.Context;
 import javax.ws.rs.core.GenericEntity;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
-import javax.ws.rs.core.UriInfo;
 
 import org.iboutsikas.practicals.bookstore.entities.Book;
 import org.iboutsikas.practicals.bookstore.repositories.BookRepository;
@@ -30,21 +29,28 @@ import org.iboutsikas.practicals.bookstore.repositories.BookRepository;
 @Singleton
 public class BookResource {
 	private BookRepository mBookRepo;
-	
-	@Context UriInfo uriInfo;
+	private EntityManager em;
 	
 	public BookResource() {
-		EntityManager em = Persistence.createEntityManagerFactory("org.iboutsikas.practicals.bookstore.entityManager").createEntityManager();
+		em = Persistence.createEntityManagerFactory("org.iboutsikas.practicals.bookstore.entityManager").createEntityManager();
 		this.mBookRepo = new BookRepository(em);
 	}
 	
 	@GET
 	@Produces(MediaType.APPLICATION_JSON)
-	public Response getAll(@QueryParam("search") String searchTerm) {
+	public Response getAll(@QueryParam("search") String searchTerm, @QueryParam("includeNotInStock") boolean includeNotInStock) {
 		List<Book> results;
-		if(searchTerm != null && !searchTerm.isEmpty()) {
+		if(searchTerm != null && !searchTerm.isEmpty() && includeNotInStock) {
+			System.out.println("--------------1");
 			results = this.mBookRepo.search(searchTerm);
+		} else if(searchTerm != null && !searchTerm.isEmpty() && !includeNotInStock){
+			System.out.println("--------------2");
+			results = this.mBookRepo.searchInStock(searchTerm);
+		} else if ((searchTerm == null || searchTerm.isEmpty()) && includeNotInStock) {
+			System.out.println("--------------3");
+			results = this.mBookRepo.getAllInStock();
 		} else {
+			System.out.println("--------------4");
 			results = this.mBookRepo.getAll();
 		}
 		
@@ -101,6 +107,12 @@ public class BookResource {
 		} catch (NoResultException nre) {
 			return Response.status(404).build();
 		}
+	}
+	
+	@PreDestroy
+	public void cleanUp() {
+//		System.out.println("Cleaning Up");
+		em.close();
 	}
 		
 }

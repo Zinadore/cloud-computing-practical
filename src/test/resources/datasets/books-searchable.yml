@@ -19,7 +19,23 @@ books:
     author: Giwrgakis
     language: Gibberish
     publisher: ThePublications
-    subject: Programmin
+    subject: Programming
     title: Why did i get involved with java?
     isbn: 1267
+    inStock: false
+  - id: 4
+    author: Giwrgakis
+    language: Gibberish
+    publisher: ThePublications
+    subject: Programming
+    title: Why did i get involved with java?
+    isbn: 1267
+    inStock: false
+  - id: 5
+    author: Kwstakis
+    language: Greek
+    publisher: Giannakis
+    subject: Programming
+    title: Failing at learning Java fast
+    isbn: 4567
     inStock: false

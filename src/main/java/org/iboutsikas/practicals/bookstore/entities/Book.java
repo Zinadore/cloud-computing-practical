@@ -7,16 +7,21 @@ import javax.persistence.*;
 @Table(name = "books")
 @NamedQueries({
 	@NamedQuery(name=Book.GET_ALL, query="SELECT e FROM Book e"),
+	@NamedQuery(name=Book.GET_ALL_IN_STOCK, query="SELECT b FROM Book b WHERE b.inStock = true"),
 	@NamedQuery(name=Book.GET_BY_AUTHOR, query="SELECT e FROM Book e WHERE e.author LIKE :authorName"),
 	@NamedQuery(name=Book.GET_BY_ID, query="SELECT b FROM Book b WHERE b.id = :id"),
-	@NamedQuery(name=Book.FUZZY_SEARCH, query="SELECT b FROM Book b WHERE lower(b.author) LIKE :term OR lower(b.language) LIKE :term OR lower(b.publisher) LIKE :term OR lower(b.subject) LIKE :term OR lower(b.title) LIKE :term OR lower(b.isbn) LIKE :term")
+	@NamedQuery(name=Book.FUZZY_SEARCH, query="SELECT b FROM Book b WHERE lower(b.author) LIKE :term OR lower(b.language) LIKE :term OR lower(b.publisher) LIKE :term OR lower(b.subject) LIKE :term OR lower(b.title) LIKE :term OR lower(b.isbn) LIKE :term"),
+	@NamedQuery(name=Book.FUZZY_SEARCH_IN_STOCK, query="SELECT b FROM Book b WHERE (lower(b.author) LIKE :term OR lower(b.language) LIKE :term OR lower(b.publisher) LIKE :term OR lower(b.subject) LIKE :term OR lower(b.title) LIKE :term OR lower(b.isbn) LIKE :term) AND b.inStock = true")
 })
 public class Book {
 	
 	public static final String GET_ALL = "getAll";
 	public static final String GET_BY_AUTHOR = "getByAuthor";
 	public static final String GET_BY_ID = "getByID";
+	public static final String GET_ALL_IN_STOCK = "getAllInStock";
 	public static final String FUZZY_SEARCH = "fuzzySearch";
+	public static final String FUZZY_SEARCH_IN_STOCK = "fuzzySearchInStock";
+	
 	
 	
 	private int id;
