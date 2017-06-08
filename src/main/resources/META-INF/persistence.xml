@@ -20,9 +20,9 @@
 		<provider>org.hibernate.jpa.HibernatePersistenceProvider</provider>
 		<properties>
 			<property name="javax.persistence.jdbc.driver" value="org.postgresql.Driver" />
-			<property name="javax.persistence.jdbc.user" value="postgres" />
-			<property name="javax.persistence.jdbc.password" value="develop" />
-			<property name="javax.persistence.jdbc.url" value="jdbc:postgresql://localhost:5432/bookstore" />
+			<property name="javax.persistence.jdbc.user" value="gviczghmaaspeq" />
+			<property name="javax.persistence.jdbc.password" value="0612d5a3920dc712bf9f367ed484e84db3e8c2b19e84623efe98841f176a0eb8" />
+			<property name="javax.persistence.jdbc.url" value="jdbc:postgres://gviczghmaaspeq:0612d5a3920dc712bf9f367ed484e84db3e8c2b19e84623efe98841f176a0eb8@ec2-54-246-108-119.eu-west-1.compute.amazonaws.com:5432/d9mrf5bfr86o60?ssl=true&sslfactory=org.postgresql.ssl.NonValidatingFactory" />
 			<property name="hibernate.dialect" value="org.hibernate.dialect.PostgreSQLDialect" />
 			<property name="hibernate.hbm2ddl.auto" value="update"></property>
 			<property name="hibernate.search.default.directory_provider"

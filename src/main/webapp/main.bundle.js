@@ -6685,7 +6685,9 @@ var NewBookComponent = (function (_super) {
 
 "use strict";
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return API_URL; });
-var API_URL = "http://www.my-bookstore.com/api";
+// export const API_URL = "http://www.my-bookstore.com/api";
+// export const API_URL = "http://www.my-bookstore.com/api";
+var API_URL = 'https://guarded-scrubland-95304.herokuapp.com/api';
 //# sourceMappingURL=constants.js.map
 
 /***/ }),
