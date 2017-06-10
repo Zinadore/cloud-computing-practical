@@ -65,7 +65,7 @@ public class BookResource {
 		try {
 			Book result = this.mBookRepo.find(id);
 			
-			return Response.status(216).entity(result).build();
+			return Response.status(200).entity(result).build();
 		} catch(NoResultException nre) {
 			return Response.status(404).build();
 		}
